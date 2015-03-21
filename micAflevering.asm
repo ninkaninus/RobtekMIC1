@@ -1,11 +1,13 @@
-; ***********************************
-; * William Bergmann Børresen
-; * AUR1 - Robtek
-; * Afleveres: dato 13-03-2015 kl 12:00
-; ***********************************
-; * Written for MIC ATmega32A board
-; * Afleverings opgave 1
-; ***********************************
+
+; |*************************************|
+; | William Bergmann Børresen			|
+; | AUR1 - Robtek						|
+; | Afleveres: dato 13-03-2015 kl 12:00	|
+; |*************************************|
+; | Written for MIC ATmega32A board		|
+; | Afleverings opgave 2				|
+; |*************************************|
+
 .include "m32def.inc"
 
 ;værdier til dispaly
@@ -20,11 +22,11 @@
 ;Initialisér programmet
 RESET:
 ; PORTC setup
-			LDI		R16, 0x00			; 
+			LDI		R16, 0x00			;
 			OUT		DDRC, R16			; Set PORTC as input
 			LDI		R16, 255			;
 			OUT		PORTC,R16 			; Enable pull-up on PORTC
-				
+
 ; PORTB setup
 			OUT 	DDRB,R16 			; PORTB = output
 			LDI		R16, 0xFF
@@ -136,6 +138,3 @@ Loopf2:		DEC		R22					;træk en fra værdien i R22
 			BREQ	Fseg				;Hvis CP gav true gå til Fseg
 
 			rjmp		LOOP
-
-
-	

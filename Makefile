@@ -7,11 +7,13 @@ PROGRAMMER=-c usbasp -P usb #For the small programmer from ebay
 #PROGRAMMER=-c stk500v1 -P /dev/ttyUSB0 # For the small green programmer
 
 HFuse=-U hfuse:w:0xd9:m #HIGH Fuse bit
-LFuse=-U lfuse:w:0xe4:m #LOW Fuse bit
+LFuse=-U lfuse:w:0xff:m #LOW Fuse bit
 
 MicType=-p m32 #Microcontroler type
 
 default:
+
+compile:
 			avra $(PROJECT).asm
 			sudo avrdude $(MicType) $(PROGRAMMER) -U flash:w:$(PROJECT).hex
 
@@ -23,3 +25,7 @@ clean:
 
 erase:
 			sudo avrdude $(MicType) $(PROGRAMMER) -e
+
+update:
+			sudo apt-get update
+			sudo apt-get upgrade

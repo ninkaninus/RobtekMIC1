@@ -7,7 +7,7 @@ PROGRAMMER=-c usbasp -P usb #For the small programmer from ebay
 #PROGRAMMER=-c stk500v1 -P /dev/ttyUSB0 # For the small green programmer
 
 HFuse=-U hfuse:w:0xd9:m #HIGH Fuse bit
-LFuse=-U lfuse:w:0xff:m #LOW Fuse bit
+LFuse=-U lfuse:w:0xe1:m #LOW Fuse bit
 
 MicType=-p m32 #Microcontroler type
 

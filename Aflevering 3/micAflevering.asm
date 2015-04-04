@@ -2,13 +2,22 @@
 ; |*************************************|
 ; | William Bergmann Børresen			|
 ; | AUR1 - Robtek						|
-; | Afleveres: dato 27-03-2015 kl 12:00	|
+; | Afleveres: dato 					|
 ; |*************************************|
 ; | Written for MIC ATmega32A board		|
-; | Afleverings opgave 2				|
+; | Afleverings opgave 3				|
 ; |*************************************|
 
 .include "m32def.inc"
+
+;værdier til dispaly
+
+;.equ segA=0b10111111
+;.equ segB=0b11110111
+;.equ segC=0b11111011
+;.equ segD=0b11111101
+;.equ segE=0b11111110
+;.equ segF=0b11101111
 
 ;Initialisér programmet
 
@@ -37,6 +46,12 @@ INIT:
 						OUT		DDRC, R16				;Set PORTC as input
 						LDI		R16, 255
 						OUT		PORTC, R16 				;Enable pull-up on PORTC
+
+; PORTD setup
+						;LDI		R16, 0x00
+						;OUT		DDRD, R16				;Set PORTD as input
+						;LDI		R16, 0
+						;OUT		PORTD, R16 				;Enable pull-up on PORTD
 
 ; PORTB setup
 						OUT 	DDRB, R16 				;PORTB = output
@@ -82,9 +97,6 @@ RET
 						;Loop A	=	R18*(1+1+1+2)-1	=	1*(5)-1			=	4 		(Cycles)
 						;Loop B	=	R17*(A+1+1+2)-1	=	125*(8)-1		=	999		(Cycles)
 						;Loop C	=	R16*(B+1+1+2)-1	=	R16*(1003)-1	=	HIGH(255764) , LOW(1002)
-
-
-
 
 INCREMENT_7SEG:
 						ldi 	ZH, high(segments<<1) 	;Load the high byte of the address

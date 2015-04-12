@@ -101,7 +101,7 @@
 .equ	UBRRL	=$09
 .equ	ACSR	=$08
 .equ    ADMUX   =$07
-.equ    ADCSR   =$06
+.equ    ADCSRA  =$06
 .equ    ADCH    =$05
 .equ    ADCL    =$04
 .equ    TWDR    =$03
@@ -423,7 +423,7 @@
 .equ    MUX1    =1
 .equ    MUX0    =0
 
-;ADCSR
+;ADCSRA
 .equ    ADEN    =7
 .equ    ADSC    =6
 .equ    ADFR    =5

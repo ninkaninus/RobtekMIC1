@@ -26,10 +26,12 @@ INIT:
 					    OUT		SPH, R16
 
 ; PORTB setup
-						LDI		R16, 255
-						OUT 	DDRB, R16 				;PORTB = OUTput
-						LDI		R16, 255
-						OUT		PORTB, R16				;Turn LEDS off
+						SBI 	DDRB, 3				;PORTB(3)
+
+
+; Timer0 setup
+						LDI		R16, 0b01110001
+						OUT		TCCR0, R16
 
 ; PORTA setup
 						LDI		R16, 0
@@ -37,22 +39,24 @@ INIT:
 						LDI		R16, 0b00100000
 						OUT     ADMUX, R16				;Change the ref to 5v ref
 						LDI		R16, 0b11100011
-						OUT     ADCSR, R16				;Set prescaler
+						OUT     ADCSRA, R16				;Set prescaler
 
 						RJMP	LOOP
 
 LOOP:
 ;Start programløkken
 
-						SBI		ADCSR, ADSC				;start new coversion
+						SBI		ADCSRA, ADSC				;start new coversion
 
 WAIT:
 ;wait for adc to be ready
-						SBIS	ADCSR, ADIF				;wait for ADC
+						SBIS	ADCSRA, ADIF				;wait for ADC
 						RJMP	WAIT
-						SBI		ADCSR, ADIF
+						SBI		ADCSRA, ADIF
+
+;continue loop
 						IN		R16, ADCL
 						IN		R16, ADCH
-						OUT		PORTB, R16
+						OUT		OCR0, R16
 
 						RJMP	LOOP

@@ -19,12 +19,6 @@
 RJMP	INIT
 
 INIT:
-;Initialize the stack
-						LDI		r16, low(RAMEND)
-					    OUT		SPL, R16
-						LDI		R16, high(RAMEND)
-					    OUT		SPH, R16
-
 ; PORTB setup
 						SBI 	DDRB, 3				;PORTB(3)
 

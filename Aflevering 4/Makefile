@@ -25,7 +25,3 @@ clean:
 
 erase:
 			sudo avrdude $(MicType) $(PROGRAMMER) -e
-
-update:
-			sudo apt-get update
-			sudo apt-get upgrade

@@ -1,6 +1,6 @@
 ;***************************************************************************
 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
-;* 
+;*
 ;* Number		        :AVR000
 ;* File Name		    :"m32def.inc"
 ;* Title		        :Register/Bit Definitions for the ATmega32
@@ -12,21 +12,21 @@
 ;* Target MCU		    :ATmega32
 ;*
 ;* DESCRIPTION
-;* When including this file in the assembly program file, all I/O register	
+;* When including this file in the assembly program file, all I/O register
 ;* names and I/O register bit names appearing in the data book can be used.
 ;* In addition, the six registers forming the three data pointers X, Y and
-;* Z have been assigned names XL - ZH. Highest RAM address for Internal 
-;* SRAM is also defined 
+;* Z have been assigned names XL - ZH. Highest RAM address for Internal
+;* SRAM is also defined
 ;*
 ;* The Register names are represented by their hexadecimal address.
-;* 
+;*
 ;* The Register Bit names are represented by their bit number (0-7).
-;* 
+;*
 ;* Please observe the difference in using the bit names with instructions
-;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc" 
+;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc"
 ;* (skip if bit in register set/cleared). The following example illustrates
 ;* this:
-;* 
+;*
 ;* in	r16,PORTB		;read PORTB latch
 ;* sbr	r16,(1<<PB6)+(1<<PB5)	;set PB6 and PB5 (use masks, not bit#)
 ;* out  PORTB,r16		;output to PORTB
@@ -53,7 +53,7 @@
 .equ	SPMCR	=$37
 .equ    TWCR    =$36
 .equ    MCUCR   =$35
-.equ    MCUSR   =$34		; For compatibility, 
+.equ    MCUSR   =$34		; For compatibility,
 .equ    MCUCSR  =$34		; keep both names until further
 .equ	TCCR0	=$33
 .equ	TCNT0	=$32
@@ -146,7 +146,7 @@
 
 ;SPMCR
 .equ	SPMIE	=7
-.equ	ASB	=6
+.equ	ASB		=6
 .equ	ASRE	=4
 .equ	BLBSET	=3
 .equ	PGWRT	=2
@@ -164,10 +164,10 @@
 .equ    ISC00   =0
 
 ;MCUCSR
-.equ	JTD     =7	
+.equ	JTD     =7
 .equ    ISC2    =6
 .equ    EIH     =5
-.equ    JTRF    =4	
+.equ    JTRF    =4
 .equ    WDRF    =3
 .equ    BORF    =2
 .equ    EXTRF   =1
@@ -225,7 +225,7 @@
 
 ;WDTCR
 .equ	WDTOE	=4
-.equ	WDE	=3
+.equ	WDE		=3
 .equ	WDP2	=2
 .equ	WDP1	=1
 .equ	WDP0	=0
@@ -237,14 +237,14 @@
 .equ	EERE	=0
 
 ;PORTA
-.equ	PA7	=7
-.equ	PA6	=6
-.equ	PA5	=5
-.equ	PA4	=4
-.equ	PA3	=3
-.equ	PA2	=2
-.equ	PA1	=1
-.equ	PA0	=0
+.equ	PA7		=7
+.equ	PA6		=6
+.equ	PA5		=5
+.equ	PA4		=4
+.equ	PA3		=3
+.equ	PA2		=2
+.equ	PA1		=1
+.equ	PA0		=0
 
 ;DDRA
 .equ	DDA7	=7
@@ -267,14 +267,14 @@
 .equ	PINA0	=0
 
 ;PORTB
-.equ	PB7	=7
-.equ	PB6	=6
-.equ	PB5	=5
-.equ	PB4	=4
-.equ	PB3	=3
-.equ	PB2	=2
-.equ	PB1	=1
-.equ	PB0	=0
+.equ	PB7		=7
+.equ	PB6		=6
+.equ	PB5		=5
+.equ	PB4		=4
+.equ	PB3		=3
+.equ	PB2		=2
+.equ	PB1		=1
+.equ	PB0		=0
 
 ;DDRB
 .equ	DDB7	=7
@@ -297,14 +297,14 @@
 .equ	PINB0	=0
 
 ;PORTC
-.equ	PC7	=7
-.equ	PC6	=6
-.equ	PC5	=5
-.equ	PC4	=4
-.equ	PC3	=3
-.equ	PC2	=2
-.equ	PC1	=1
-.equ	PC0	=0
+.equ	PC7		=7
+.equ	PC6		=6
+.equ	PC5		=5
+.equ	PC4		=4
+.equ	PC3		=3
+.equ	PC2		=2
+.equ	PC1		=1
+.equ	PC0		=0
 
 ;DDRC
 .equ	DDC7	=7
@@ -327,14 +327,14 @@
 .equ	PINC0	=0
 
 ;PORTD
-.equ	PD7	=7
-.equ	PD6	=6
-.equ	PD5	=5
-.equ	PD4	=4
-.equ	PD3	=3
-.equ	PD2	=2
-.equ	PD1	=1
-.equ	PD0	=0
+.equ	PD7		=7
+.equ	PD6		=6
+.equ	PD5		=5
+.equ	PD4		=4
+.equ	PD3		=3
+.equ	PD2		=2
+.equ	PD1		=1
+.equ	PD0		=0
 
 ;DDRD
 .equ	DDD7	=7
@@ -357,14 +357,14 @@
 .equ	PIND0	=0
 
 ;UCSRA
-.equ	RXC	=7
-.equ	TXC	=6
+.equ	RXC		=7
+.equ	TXC		=6
 .equ	UDRE	=5
-.equ	FE	=4
-.equ	OR	=3		; old name kept for compatibilty
-.equ	DOR	=3
-.equ	PE	=2
-.equ	U2X	=1
+.equ	FE		=4
+.equ	OR		=3		; old name kept for compatibilty
+.equ	DOR		=3
+.equ	PE		=2
+.equ	U2X		=1
 .equ	MPCM	=0
 
 ;UCSRB
@@ -387,10 +387,10 @@
 .equ	UCSZ1	=2
 .equ	UCSZ0	=1
 .equ	UCPOL	=0
-		
+
 ;SPCR
 .equ	SPIE	=7
-.equ	SPE	=6
+.equ	SPE		=6
 .equ	DORD	=5
 .equ	MSTR	=4
 .equ	CPOL	=3
@@ -404,10 +404,10 @@
 .equ	SPI2X	=0
 
 ;ACSR
-.equ	ACD	=7
+.equ	ACD		=7
 .equ    ACBG    =6
-.equ	ACO	=5
-.equ	ACI	=4
+.equ	ACO		=5
+.equ	ACI		=4
 .equ	ACIE	=3
 .equ	ACIC	=2
 .equ	ACIS1	=1
@@ -452,19 +452,19 @@
 .equ    OCR2UB  =1
 .equ    TCR2UB  =0
 
-.def	XL	=r26
-.def	XH	=r27
-.def	YL	=r28
-.def	YH	=r29
-.def	ZL	=r30
-.def	ZH	=r31
+.def	XL		=r26
+.def	XH		=r27
+.def	YL		=r28
+.def	YH		=r29
+.def	ZL		=r30
+.def	ZH		=r31
 
 .equ 	FLASHEND	=$3FFF
 .equ 	E2END	    =$3FF
 .equ	RAMEND	    =$85F
 
 			;  byte groups
-			;  /\/--\/--\/--\ 
+			;  /\/--\/--\/--\
 .equ 	SMALLBOOTSTART	=0b11111100000000  ;($3F00) smallest boot block is 256W
 .equ 	SECONDBOOTSTART	=0b11111000000000  ;($3E00) 2'nd boot block size is 512W
 .equ 	THIRDBOOTSTART	=0b11110000000000  ;($3C00) third boot block size is 1KW
@@ -493,6 +493,3 @@
 .equ	ACIaddr =$024	; Analog Comparator Interrupt Vector Address
 .equ    TWSIaddr=$026   ; Irq. vector address for Two-Wire Interface
 .equ	SPMRaddr=$028	; Store Program Memory Ready Interrupt Vector Address
-
-
-

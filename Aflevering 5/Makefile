@@ -20,6 +20,7 @@ compile:
 fuse:
 			sudo avrdude $(MicType) $(PROGRAMMER) $(HFuse) $(LFuse)
 
+
 clean:
 			rm -f $(PROJECT).obj $(PROJECT).hex $(PROJECT).cof $(PROJECT).eep.hex
 

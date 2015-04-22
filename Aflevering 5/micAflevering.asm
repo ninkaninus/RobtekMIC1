@@ -20,45 +20,72 @@
 
 .include "m32def.inc"
 
-;Initialize programmet
+.ORG 0 ;RESET IRQ adresse
+	JMP 	MAIN
 
-;Entry point
-.org	0x0000
-RJMP	INIT
+.ORG 0x14 				;OFC0 IRQ adresse
+	JMP 	OFC0_ISR 	;Opsæt ISR
 
-INIT:
-; PORTB setup
-						SBI 	DDRB, 3					;PORTB(3)
+.ORG 0x2A ;Skip vektor tabel
+
+MAIN:
+;Setup stak
+	LDI 	R16, 	HIGH(RAMEND)
+	OUT 	SPH, 	R16
+	LDI 	R16, 	LOW(RAMEND)
+	OUT 	SPL, 	R16
 
 
-; Timer0 setup
-						LDI		R16, 0b01111001
-						OUT		TCCR0, R16				;Timer0 setup
+;Enable OFC interrupt på Timer0
+	SEI
+	LDI		R16,	(1<<OCIE0)
+	OUT 	TIMSK, 	R16
 
-; PORTA setup
-						LDI		R16, 0
-						OUT		DDRA, R16
-						LDI		R16, 0b00100000
-						OUT     ADMUX, R16				;Change the ref to 5v ref
-						LDI		R16, 0b10100011
-						OUT     ADCSRA, R16				;Set prescaler
 
-						RJMP	LOOP					;Jump to LOOP
+;Setup Timer0 til CTC mode, 10 ticks
+	;LDI 	R16, 	0b00001101
+	;OUT 	OCR0, 	R16
+	LDI 	R16, 	0x09 ;Ingen prescaler
+	OUT 	TCCR0, 	R16
+	LDI 	R20, 	0
+ 	OUT 	TCNT0, 	R20
+	LDI 	R20, 	25
+ 	OUT		OCR0,	R20
+
+
+;Opsæt PORTB til output
+	LDI		R16, 	0xFF
+	OUT 	DDRB, 	R16
+	LDI		R16,	0x55
+	OUT 	PORTB,	R16
+
+; Initialize ... Whatever
+	LDI 	R16, 	0b00000101 	;1-tal i LSB
 
 LOOP:
-;Start the loop
+	LDI		R16,	0x00
+	OUT 	PORTB,	R16
+	JMP 	LOOP
 
-						SBI		ADCSRA, ADSC			;start new coversion
 
-WAIT:
-;wait for ADC to be ready
-						SBIS	ADCSRA, ADIF			;Check if the ADC has set the flag
-						RJMP	WAIT					;If not jump  to WAIT
-						SBI		ADCSRA, ADIF			;Clear ADC flag
+OFC0_ISR:
+	LDI		R16,	0x00
+	OUT 	PORTB,	R16
+	Call	DELAY_1MS
+	RETI 	;Afslut ISR
 
-;continue loop
-						IN		R16, ADCL				;Read ADC low byte into R16
-						IN		R16, ADCH				;Read ADC high byte into R16 to overrite low byte
-						OUT		OCR0, R16				;Output the value from R16 (ADC HIGH) into the value for the timer to compare with
 
-						RJMP	LOOP					;Jump to LOOP
+DELAY_1MS:
+		DELAY_1MS_C:										;									------------|
+							LDI		R17, 125				;load 125 ind i R17			(1 Cycle)-------|	|
+			DELAY_1MS_B:									;											|	|
+							LDI		R18,20					;load 1 ind i R18			(1 Cycle)---|	|	|
+				DELAY_1MS_A:								;										|	|	|
+							NOP								;Do nothing for 1 cycle		(1 Cycle)	|A	|B	|C
+							DEC		R18						;R18 - 1					(1 Cycle)	|	|	|
+							BRNE	DELAY_1MS_A				;Jump to DELAY_1MS_0		(1 Cycle)---|	|	|
+							DEC		R17						;R17 - 1					(1 Cycle)		|	|
+							BRNE	DELAY_1MS_B				;Jump to DELAY_1MS_1		(1 Cycle)-------|	|
+							DEC		R16						;R16 - 1					(1 Cycle)			|
+							BRNE	DELAY_1MS_C				;Jump to DELAY_1MS_1		(1 Cycle)-----------|
+	RET

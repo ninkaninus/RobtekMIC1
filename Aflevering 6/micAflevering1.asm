@@ -35,35 +35,14 @@ SETUP:
 	OUT		UCSRA,	R16
 	LDI		R16,	12				;UBRR LSB
 	OUT		UBRRL,	R16
+	;LDI		R16,	1				;UBRR MSB (URSEL = 0)
+	;OUT		UBRRH,	R16
 
 LOOP:
-
-MODTAG:
-	SBIS	UCSRA,	RXC				;Hvis RXC=1, så er UDR klar med ny inddata
-	RJMP	MODTAG
-	IN		R17,	UDR				;Modtag data
-	mov 	R18,	R17
-	subi	R18,	'A'
-	brmi	SEND
-	subi	R18,	26
-	brmi	UPPER_TO_LOWER
-	subi	R18,	6
-	brmi	SEND
-	subi	R18,	26
-	brmi	LOWER_TO_UPPER
-	RJMP	SEND
-
-UPPER_TO_LOWER:
-	LDI		R18,	32
-	ADD		R17,	R18
-	RJMP	SEND
-
-LOWER_TO_UPPER:
-	SUBI	R17,	32
-	RJMP	SEND
 
 SEND:
 	SBIS	UCSRA,	UDRE			;Hvis UDRE=1, så er UDR tom og klar til ny uddata
 	RJMP	SEND
+	LDI		R17,	66
 	OUT		UDR,	R17				;Send data
-	RJMP	LOOP					;Fortsæt uendeligt
+	RJMP	SEND					;Fortsæt uendeligt

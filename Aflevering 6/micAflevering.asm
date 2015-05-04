@@ -63,7 +63,7 @@ LOWER_TO_UPPER:
 	RJMP	SEND					;Jump to SEND
 
 SEND:
-	SBIS	UCSRA,	UDRE			;IF UDRE=1, UDR is empty and ready to new data
+	SBIS	UCSRA,	UDRE			;IF UDRE=0, UDR is empty and ready to new data
 	RJMP	SEND					;Jump to SEND if the data line is not bussy
 	OUT		UDR,	R17				;SEND data
 	RJMP	LOOP					;Loop forever
